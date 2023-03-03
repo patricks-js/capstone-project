@@ -45,16 +45,28 @@ public class Display {
         Scanner input = new Scanner(System.in);
 
         values.add(validValues("Enter the width of th grid [10, 20, 40, 80]: ", new int[]{10, 20, 40, 80}));
-        values.add(validValues("Enter the width of th grid [10, 20, 40]: ", new int[]{10, 20, 40}));
+        values.add(validValues("Enter the height of th grid [10, 20, 40]: ", new int[]{10, 20, 40}));
         values.add(validValue("Enter the max generations (0 = infinity): ", 0));
         values.add(validValues("Enter the fps [250, 1000]: ", new int[]{250, 1000}));
-        System.out.print("Enter the first generation: (default: 'rnd'): ");
 
         return values;
     }
 
     public String getFirstGeneration() {
-        return "";
+        Scanner scanner = new Scanner(System.in);
+        String value;
+        boolean valid = false;
+        do {
+            System.out.print("Enter the first generation (#, 0, 1): ");
+            value = scanner.nextLine();
+
+            // Colar aqui
+
+            if (!valid) {
+                System.out.println("Invalid value. Try again.");
+            }
+        } while (!valid);
+        return value;
     }
 
     public void playGOL(ArrayList<Integer> values, String firstGeneration) throws InterruptedException {
