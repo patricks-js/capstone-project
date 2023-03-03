@@ -1,34 +1,64 @@
 package Components;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Display {
-    private int width;
-    private int height;
-    private int generations;
-    private int fps;
-    private String firstGeneration;
-
-    public Display(int width,int height, int generations, int fps, String firstGeneration) {
-        this.width = width;
-        this.height = height;
-        this.generations = generations;
-        this.fps = fps;
-        this.firstGeneration = firstGeneration;
+    private int validValue(String message, int validValue) {
+        Scanner scanner = new Scanner(System.in);
+        int value;
+        boolean valid = false;
+        do {
+            System.out.print(message);
+            value = scanner.nextInt();
+            if (validValue >= 0) {
+                valid = true;
+            } else {
+                System.out.println("Invalid value. Try again.");
+            }
+        } while (!valid);
+        return value;
     }
 
-    public void playGOL() throws InterruptedException {
-        int currentGeneration = 0;
-        Grid newGrid = new Grid(this.height, this.width);
-
-        while(generations > currentGeneration) {
-            currentGeneration += 1;
-            String status = "Grid [" + this.height + "]" + "[" + this.width + "]" + " Generation: [" + currentGeneration + "/" + this.generations + "]" + " FPS: [" + this.fps + "]";
-            System.out.println(status);
-            newGrid.drawGrid();
-            Thread.sleep(this.fps);
-        }
+    private int validValues(String message, int[] validValues) {
+        Scanner scanner = new Scanner(System.in);
+        int value;
+        boolean valid = false;
+        do {
+            System.out.print(message);
+            value = scanner.nextInt();
+            for (int validValue : validValues) {
+                if (value == validValue) {
+                    valid = true;
+                    break;
+                }
+            }
+            if (!valid) {
+                System.out.println("Invalid value. Try again.");
+            }
+        } while (!valid);
+        return value;
     }
 
-    public void menu() {
+    public ArrayList<Integer> menu() {
+        ArrayList<Integer> values = new ArrayList<Integer>();
+        Scanner input = new Scanner(System.in);
 
+        values.add(validValues("Enter the width of th grid [10, 20, 40, 80]: ", new int[]{10, 20, 40, 80}));
+        values.add(validValues("Enter the width of th grid [10, 20, 40]: ", new int[]{10, 20, 40}));
+        values.add(validValue("Enter the max generations (0 = infinity): ", 0));
+        values.add(validValues("Enter the fps [250, 1000]: ", new int[]{250, 1000}));
+        System.out.print("Enter the first generation: (default: 'rnd'): ");
+
+        return values;
+    }
+
+    public String getFirstGeneration() {
+        return "";
+    }
+
+    public void playGOL(ArrayList<Integer> values, String firstGeneration) throws InterruptedException {
+        Grid newGrid = new Grid(values, firstGeneration);
+        newGrid.showGrid();
     }
 }
