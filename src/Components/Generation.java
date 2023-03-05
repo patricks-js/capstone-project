@@ -63,7 +63,7 @@ public class Generation {
                 int newY = item + j;
 
                 if (newX >= 0 && newX < matrix.length && newY >= 0 && newY < matrix[0].length) {
-                    if (matrix[newX][newY] != null && matrix[newX][newY].isAlive()) {
+                    if (matrix[newX][newY].isAlive()) {
                         neighborsCounter++;
                     }
                 }
@@ -83,12 +83,6 @@ public class Generation {
         int aliveNeighbors = this.getAliveNeighbors(matrix, line, item);
 
         return aliveNeighbors < 2 || aliveNeighbors > 3;
-    }
-
-    private void getAliveCells(Cell[][] matrix, int line, int item) {
-        if(matrix[line][item].isAlive()) {
-            System.out.println("Alive in position: " + line + " " + item);
-        }
     }
 
     public List<List<Integer>> getReviveCells(Cell[][] matrix) {
@@ -113,7 +107,7 @@ public class Generation {
     public List<List<Integer>> getDieCells(Cell[][] matrix) {
         List<List<Integer>> toDie = new ArrayList<>();
 
-        for (int line = 1; line < matrix.length - 1; line++) {
+        for(int line = 1; line < matrix.length - 1; line++) {
             for (int item = 1; item < matrix[line].length - 1; item++) {
                 if(matrix[line][item].isAlive()) {
                     if(isToDie(matrix, line, item)) {

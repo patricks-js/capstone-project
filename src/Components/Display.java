@@ -34,7 +34,7 @@ public class Display {
                 }
             }
             if (!valid) {
-                System.out.println("Invalid value. Try again.");
+                System.out.println("Invalid value. Try again.\n");
             }
         } while (!valid);
         return value;
@@ -42,7 +42,6 @@ public class Display {
 
     public ArrayList<Integer> menu() {
         ArrayList<Integer> values = new ArrayList<Integer>();
-        Scanner input = new Scanner(System.in);
 
         values.add(validValues("Enter the width of th grid [10, 20, 40, 80]: ", new int[]{10, 20, 40, 80}));
         values.add(validValues("Enter the height of th grid [10, 20, 40]: ", new int[]{10, 20, 40}));

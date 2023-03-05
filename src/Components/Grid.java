@@ -8,8 +8,7 @@ public class Grid {
     private int generations;
     private int fps;
     private String firstGeneration;
-
-    private Cell[][] firstGen;
+    private Cell[][] currentGen;
 
     public Grid(ArrayList<Integer> values, String firstGeneration) {
         this.width = values.get(0);
@@ -17,7 +16,7 @@ public class Grid {
         this.generations = values.get(2);
         this.fps = values.get(3);
         this.firstGeneration = firstGeneration;
-        this.firstGen = new Cell[this.width + 2][this.height + 2];
+        this.currentGen = new Cell[this.width + 2][this.height + 2];
     }
 
     private void drawGrid(int currentGen) {
@@ -25,16 +24,16 @@ public class Grid {
         String[][] matrixToDraw = new String[this.height][this.width];
 
         if(currentGen == 0) {
-            this.firstGen = generations.getFirstGen(this.width + 2, this.height + 2);
-            generations.drawGen(matrixToDraw, firstGen, this.width, this.height);
+            this.currentGen = generations.getFirstGen(this.width + 2, this.height + 2);
+            generations.drawGen(matrixToDraw, this.currentGen, this.width, this.height);
         } else {
-            this.firstGen = generations.updateGen(this.firstGen);
-            generations.drawGen(matrixToDraw, this.firstGen, this.width, this.height);
+            this.currentGen = generations.updateGen(this.currentGen);
+            generations.drawGen(matrixToDraw, this.currentGen, this.width, this.height);
         }
 
         for(String[] row : matrixToDraw) {
-            for(int item = 0; item < row.length; item++) {
-                System.out.print(row[item] + "\t");
+            for (String cell : row) {
+                System.out.print(cell + "\t");
             }
             System.out.println();
         }
