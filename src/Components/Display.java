@@ -59,8 +59,14 @@ public class Display {
         do {
             System.out.print("Enter the first generation (#, 0, 1): ");
             value = scanner.nextLine();
-
-            // Colar aqui
+            String validChar = "#01";
+            valid = true;
+            for (int i = 0; i < value.length(); i++) {
+                if (!validChar.contains(value.substring(i, i+1))) {
+                    valid = false;
+                    break;
+                }
+            }
 
             if (!valid) {
                 System.out.println("Invalid value. Try again.");
